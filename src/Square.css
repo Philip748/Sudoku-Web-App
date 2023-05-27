@@ -1,0 +1,35 @@
+.squareClass {
+    display: inline-block;
+    color: rgb(196, 179, 3);
+    height: 56px;
+    width: 56px;
+    margin: 2px;
+    outline-color: #c4b303;
+}
+
+.nonInputClass {
+    background-color: #494949;
+}
+
+.inputClass{
+    background-color: #666666;
+}
+
+.squareClass:hover {
+    background-color: #864545;
+    cursor: default;
+}
+
+.displayNumberClass {
+    margin-top: 7px;
+    margin-bottom: 0px;
+    text-align: center;
+    font-family: "Lucida Handwriting";
+}
+
+.backgroundSquare {
+    margin: 2px;
+    width: 176px;
+    height: 176px;
+    display: inline-block;
+}
