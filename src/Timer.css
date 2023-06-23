@@ -1,0 +1,13 @@
+#clockDiv {
+    color: rgb(196, 179, 3);
+    background-color: rgb(80 80 80);
+    width: 80px;
+    text-align: center;
+    border: 4px solid black;
+    font-size: x-large;
+    position: absolute;
+    left: calc(50% + 230px);
+    top: calc(50% + 290px);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

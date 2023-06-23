@@ -1,9 +1,6 @@
 .squareClass {
     display: inline-block;
     color: rgb(196, 179, 3);
-    height: 56px;
-    width: 56px;
-    margin: 2px;
     outline-color: #c4b303;
 }
 
@@ -12,7 +9,7 @@
 }
 
 .inputClass{
-    background-color: #666666;
+    background-color: #694d4d;
 }
 
 .squareClass:hover {

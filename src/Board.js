@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import Square from './Square'
-import './Board.css'
+import React, { useState, useEffect } from 'react';
+import Square from './Square';
+import Timer from './Timer.js';
+import './Board.css';
 
 var selectedSquareID = null
 var squares = []
@@ -98,49 +99,125 @@ export default function Board() {
         return true;
     }
 
-    const sudokuBoard = generateSudokuBoard();
+    const [sudokuBoard, setSudokuBoard] = useState(() => generateSudokuBoard());
+    const [selectedSquareID, setSelectedSquareID] = useState(null);
+
+    function undoHighlight(board){
+        for (let i=0; i<board.length; i++){
+            board[i]["weakHighlight"] = false
+            board[i]["strongHighlight"] = false
+        }
+    }
+
+    function highlightRow(board, id) {
+        for (let i=0; i<board.length; i++){
+            if (id !== null){
+                if (Math.floor(i/9) === Math.floor(id/9)){
+                    board[i]["weakHighlight"] = true
+                }
+            }
+        }
+    }
+    
+    function highlightCol(board, id) {
+        for (let i=0; i<board.length; i++){
+            if (id !== null){
+                if (i % 9 === id % 9){
+                    board[i]["weakHighlight"] = true
+                }
+            }
+        }
+    }
+    
+    function highlightSection(board, id) {
+        var sections = [[0,1,2,9,10,11,18,19,20],
+                        [3,4,5,12,13,14,21,22,23],
+                        [6,7,8,15,16,17,24,25,26],
+                        [27,28,29,36,37,38,45,46,47],
+                        [30,31,32,39,40,41,48,49,50],
+                        [33,34,35,42,43,44,51,52,53],
+                        [54,55,56,63,64,65,72,73,74],
+                        [57,58,59,66,67,68,75,76,77],
+                        [60,61,62,69,70,71,78,79,80]]
+    
+        for (let j=0; j<sections.length; j++){
+            if (sections[j].includes(id)){
+                for (let i=0; i<sections[j].length; i++){
+                    board[sections[j][i]]["weakHighlight"] = true
+                }
+            }
+        }
+    }
+    
+    function strongHighlightSameNumbers(board, id) {
+        for (let i=0; i<board.length; i++){
+            if (id !== null){
+                if (board[i]["displayNum"] == board[id]["displayNum"] && board[i]["displayNum"] != "‎"){
+                    board[i]["strongHighlight"] = true
+                }
+            }
+        }
+    }
+    
 
     const selectSquareByID = (identifier) => {
+        let tempBoard = [...sudokuBoard];
         if (selectedSquareID !== identifier) {
             if (selectedSquareID !== null) {
-            sudokuBoard[selectedSquareID]["selected"] = false
+                tempBoard[selectedSquareID]["selected"] = false;
+                undoHighlight(tempBoard, identifier);
             }
-            selectedSquareID = identifier
-            sudokuBoard[selectedSquareID]["selected"] = true
+            tempBoard[identifier]["selected"] = true;
+            undoHighlight(tempBoard, identifier);
+            highlightRow(tempBoard, identifier);
+            highlightCol(tempBoard, identifier);
+            highlightSection(tempBoard, identifier);
+            strongHighlightSameNumbers(tempBoard, identifier);
+            setSelectedSquareID(identifier);
+        } else {
+            tempBoard[selectedSquareID]["selected"] = false;
+            setSelectedSquareID(null)
+            undoHighlight(tempBoard, identifier);
         }
-        else {
-            sudokuBoard[selectedSquareID]["selected"] = false
-            selectedSquareID = null
+        setSudokuBoard(tempBoard);
+    };
+
+    const selectSquareByIDWithoutChecking = (identifier) => {
+        let tempBoard = [...sudokuBoard];
+        tempBoard[identifier]["selected"] = true;
+        undoHighlight(tempBoard, identifier);
+        highlightRow(tempBoard, identifier);
+        highlightCol(tempBoard, identifier);
+        highlightSection(tempBoard, identifier);
+        strongHighlightSameNumbers(tempBoard, identifier);
+        setSudokuBoard(tempBoard);
+        setSelectedSquareID(identifier);
+    };
+    
+    
+    useEffect(() => {
+        let updatedBoard = setupBoard(sudokuBoard);
+        setSudokuBoard(updatedBoard);
+    }, []);
+      
+      useEffect(() => {
+        function setUpSquares(sudokuBoard) {
+          let squaresArray = sudokuBoard.map((val) => {
+            return (<Square
+              trueNumber={val["value"]}
+              displayNumber={val["displayNum"]}
+              identifier={val["id"]}
+              selectSquareByID={selectSquareByID}
+              selected={val["selected"]}
+              input={val["input"]}
+              key={val["id"]}
+              weakHighlight={val["weakHighlight"]}
+              strongHighlight={val["strongHighlight"]}/>)})
+          setSquares(squaresArray);
         }
         setUpSquares(sudokuBoard);
-        setSquares(squares)
-      };
-    
-    for (let i=0; i<sudokuBoard.length; i++) {
-        if (Math.random() < 0.5) {
-            sudokuBoard[i]["displayNum"] = sudokuBoard[i]["value"]
-            sudokuBoard[i]["input"] = false
-        }
-        else {
-            sudokuBoard[i]["displayNum"] = "‎"
-            sudokuBoard[i]["input"] = true
-        }
-        sudokuBoard[i]["selected"] = false
-    }
-
-
-    function setUpSquares(sudokuBoard) {
-        squares = sudokuBoard.map((val) => {
-            {return (<Square
-                trueNumber={val["value"]}
-                displayNumber={val["displayNum"]}
-                identifier={val["id"]}
-                selectSquareByID={selectSquareByID}
-                selected={val["selected"]}
-                input={val["input"]}
-                key={val["id"]}/>)}})
-    }
-    setUpSquares(sudokuBoard);
+      }, [sudokuBoard]);
+      
 
     const [squaresSet, setSquares] = useState(squares);
 
@@ -182,16 +259,19 @@ export default function Board() {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
+            let updatedBoard = [...sudokuBoard];
             const key = event.key;
             if (selectedSquareID !== null) {
-                if (sudokuBoard[selectedSquareID]["input"] === true) {
+                if (updatedBoard[selectedSquareID]["input"] === true) {
                     if (key >= '1' && key <= '9') {
                         // Handle the key press for numbers 1 to 9
-                        sudokuBoard[selectedSquareID]["displayNum"] = parseInt(key)
+                        updatedBoard[selectedSquareID]["displayNum"] = parseInt(key)
+                        checkCompletion();
                     } else if (key === 'Backspace') {
                         // Handle the Backspace key press
-                        sudokuBoard[selectedSquareID]["displayNum"] = "‎"
+                        updatedBoard[selectedSquareID]["displayNum"] = "‎"
                     }
+                    selectSquareByIDWithoutChecking(selectedSquareID);
                 }
                 if (key === 'ArrowRight'){
                     moveRight();
@@ -205,8 +285,6 @@ export default function Board() {
                 else if (key === 'ArrowDown'){
                     moveDown();
                 }
-                setUpSquares(sudokuBoard);
-                setSquares(squares)
             }
         };
     
@@ -215,17 +293,103 @@ export default function Board() {
         return () => {
           window.removeEventListener('keydown', handleKeyDown);
         };
-      }, []);
+      },[sudokuBoard, selectedSquareID]);
+
+      
+    const [seconds, setSeconds] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [isPuzzleFinished, setIsPuzzleFinished] = useState(false);
+
+    function checkCompletion(){
+        if (checkIfCompleted(sudokuBoard)){
+            setIsPuzzleFinished(true);
+        };
+    }
+
+    function checkIfCompleted(board) {
+        // Convert the 1D board to a 2D board
+        const twoDBoard = Array.from({ length: 9 }, (_, i) => 
+            board.slice(i * 9, i * 9 + 9).map(square => square.displayNum)
+        );
+    
+        // Check each row
+        for (let row of twoDBoard) {
+            const numSet = new Set(row);
+            if (numSet.size !== 9 || numSet.has("‎")) return false;
+        }
+    
+        // Check each column
+        for (let j = 0; j < 9; j++) {
+            const numSet = new Set(twoDBoard.map(row => row[j]));
+            if (numSet.size !== 9 || numSet.has("‎")) return false;
+        }
+    
+        // Check each 3x3 box
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                const numSet = new Set();
+                for (let i = boxRow * 3; i < boxRow * 3 + 3; i++) {
+                    for (let j = boxCol * 3; j < boxCol * 3 + 3; j++) {
+                        numSet.add(twoDBoard[i][j]);
+                    }
+                }
+                if (numSet.size !== 9 || numSet.has("‎")) return false;
+            }
+        }
+    
+        // If all rows, columns, and 3x3 boxes pass, it's a complete board
+        return true;
+    }
+    
+
+    function setupBoard(board) {
+        let updatedBoard = [...board];
+        for (let i=0; i<updatedBoard.length; i++) {
+          if (Math.random() < 0.5) {
+            updatedBoard[i]["displayNum"] = updatedBoard[i]["value"]
+            updatedBoard[i]["input"] = false
+          }
+          else {
+            updatedBoard[i]["displayNum"] = "‎"
+            updatedBoard[i]["input"] = true
+          }
+          updatedBoard[i]["selected"] = false
+          updatedBoard[i]["weakHighlight"] = false
+          updatedBoard[i]["strongHighlight"] = false
+        }
+        return updatedBoard;
+    }
+    
+    function playAnother() {
+        setSeconds(0);
+        setMinutes(0);
+        setIsPuzzleFinished(false);
+        setSelectedSquareID(null);
+        var temp = generateSudokuBoard()
+        temp = setupBoard(temp);
+        setSudokuBoard(temp);
+    }
 
     return (
-        <>
-            <div className='line' id='lineOne'/>
-            <div className='line' id='lineTwo'/>
-            <div className='line' id='lineThree'/>
-            <div className='line' id='lineFour'/>
-            <div className='boardClass'>
-                {squaresSet}
+        <div>
+        <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
+        {isPuzzleFinished ? (
+            <div className='finishBox'>
+            Congratulations, you finished the puzzle!
+            <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
+            <button id='playAnotherButton' onClick={playAnother}>Play Another</button>
             </div>
+        ) : (
+        <>
+        <div className='line' id='lineOne'/>
+        <div className='line' id='lineTwo'/>
+        <div className='line' id='lineThree'/>
+        <div className='line' id='lineFour'/>
+        <div className='boardClass'>
+            {squaresSet}
+        </div>
         </>
-    )
+        )}
+        </div>
+    );
 }
