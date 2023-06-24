@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Square from './Square';
 import Timer from './Timer.js';
 import './Board.css';
+import './Square.css'
 
 var selectedSquareID = null
 var squares = []
+var revealing = false
+var difficulty = 0.5
 
 export default function Board() {
     function generateSudokuBoard() {
@@ -162,22 +165,29 @@ export default function Board() {
 
     const selectSquareByID = (identifier) => {
         let tempBoard = [...sudokuBoard];
-        if (selectedSquareID !== identifier) {
-            if (selectedSquareID !== null) {
+        if (revealing == false){
+            if (selectedSquareID !== identifier) {
+                if (selectedSquareID !== null) {
+                    tempBoard[selectedSquareID]["selected"] = false;
+                    undoHighlight(tempBoard, identifier);
+                }
+                tempBoard[identifier]["selected"] = true;
+                undoHighlight(tempBoard, identifier);
+                highlightRow(tempBoard, identifier);
+                highlightCol(tempBoard, identifier);
+                highlightSection(tempBoard, identifier);
+                strongHighlightSameNumbers(tempBoard, identifier);
+                setSelectedSquareID(identifier);
+            } else {
                 tempBoard[selectedSquareID]["selected"] = false;
+                setSelectedSquareID(null)
                 undoHighlight(tempBoard, identifier);
             }
-            tempBoard[identifier]["selected"] = true;
-            undoHighlight(tempBoard, identifier);
-            highlightRow(tempBoard, identifier);
-            highlightCol(tempBoard, identifier);
-            highlightSection(tempBoard, identifier);
-            strongHighlightSameNumbers(tempBoard, identifier);
-            setSelectedSquareID(identifier);
-        } else {
-            tempBoard[selectedSquareID]["selected"] = false;
-            setSelectedSquareID(null)
-            undoHighlight(tempBoard, identifier);
+        }
+        else{
+            tempBoard[identifier]["displayNum"] = tempBoard[identifier]["value"]
+            tempBoard[identifier]["input"] = false
+            checkCompletion();
         }
         setSudokuBoard(tempBoard);
     };
@@ -216,6 +226,7 @@ export default function Board() {
           setSquares(squaresArray);
         }
         setUpSquares(sudokuBoard);
+        checkCompletion();
       }, [sudokuBoard]);
       
 
@@ -303,6 +314,12 @@ export default function Board() {
     function checkCompletion(){
         if (checkIfCompleted(sudokuBoard)){
             setIsPuzzleFinished(true);
+            var y = document.getElementById("timerDiv");
+            if (y) y.style.display = "none";
+            var z = document.getElementById("newGameButton");
+            if (z) z.style.display = "none";
+            var c = document.getElementById("revealSquareButton");
+            if (c) c.style.display = "none";
         };
     }
 
@@ -345,7 +362,7 @@ export default function Board() {
     function setupBoard(board) {
         let updatedBoard = [...board];
         for (let i=0; i<updatedBoard.length; i++) {
-          if (Math.random() < 0.5) {
+          if (Math.random() < difficulty) {
             updatedBoard[i]["displayNum"] = updatedBoard[i]["value"]
             updatedBoard[i]["input"] = false
           }
@@ -361,6 +378,19 @@ export default function Board() {
     }
     
     function playAnother() {
+        var x = document.getElementById("newGameDiv");
+        if (x) x.style.display = "none";
+        var y = document.getElementById("timerDiv");
+        if (y) y.style.display = "block";
+        var z = document.getElementById("newGameButton");
+        if (z) z.style.display = "block";
+        var c = document.getElementById("revealSquareButton");
+        if (c) c.style.display = "block";
+        var y = document.getElementById("myRange");
+        difficulty = 0.75 - y.value/100;
+        if (revealing){
+            enterRevealSquareMode();
+        }
         setSeconds(0);
         setMinutes(0);
         setIsPuzzleFinished(false);
@@ -370,26 +400,76 @@ export default function Board() {
         setSudokuBoard(temp);
     }
 
+    function enterRevealSquareMode() {
+        if (selectedSquareID !== null) {
+          selectSquareByID(selectedSquareID);
+        }
+        revealing ^= true;
+        let squares = document.querySelectorAll(".squareClass");
+        for (let i = 0; i < squares.length; i++) {
+          if (revealing) {
+            squares[i].style.cursor = "help";
+          } else {
+            squares[i].style.cursor = "default";
+          }
+        }
+        if (revealing){
+            var x = document.getElementById("revealSquareButton");
+            x.style.backgroundColor = "#f38d8d";
+        }
+        else {
+            var x = document.getElementById("revealSquareButton");
+            x.style.backgroundColor = "#be6666";
+        }
+      }
+      
+
+      function displayStartNewGame(){
+        var x = document.getElementById("newGameDiv");
+        if (x) x.style.display = "block";
+        var y = document.getElementById("timerDiv");
+        if (y) y.style.display = "none";
+        var z = document.getElementById("newGameButton");
+        if (z) z.style.display = "none";
+        var c = document.getElementById("revealSquareButton");
+        if (c) c.style.display = "none";
+    }
+
     return (
         <div>
-        <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
-        {isPuzzleFinished ? (
-            <div className='finishBox'>
-            Congratulations, you finished the puzzle!
-            <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
-            <button id='playAnotherButton' onClick={playAnother}>Play Another</button>
+        <div id='pageDiv'>
+            <div id='timerDiv'>
+                <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
             </div>
-        ) : (
-        <>
-        <div className='line' id='lineOne'/>
-        <div className='line' id='lineTwo'/>
-        <div className='line' id='lineThree'/>
-        <div className='line' id='lineFour'/>
-        <div className='boardClass'>
-            {squaresSet}
+            <div id='newGameDiv'>
+                <p id='newGameHeading'>Select your desired difficulty</p>
+                <p id='easyText'>Easy</p> <p id='hardText'>Hard</p>
+                <div className="slidecontainer">
+                    <input type="range" min="0" max="50" defaultValue="25" className="slider" id="myRange"></input>
+                </div>
+                <button id='startGameButton' onClick={playAnother}>Start Game</button>
+            </div>
+            {isPuzzleFinished ? (
+                <div className='finishBox'>
+                Congratulations, you finished the puzzle!
+                <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
+                <button id='playAnotherButton' onClick={displayStartNewGame}>Play Another</button>
+                </div>
+            ) : (
+            <>
+            <div className='line' id='lineOne'/>
+            <div className='line' id='lineTwo'/>
+            <div className='line' id='lineThree'/>
+            <div className='line' id='lineFour'/>
+            <div className='boardClass'>
+                {squaresSet}
+            </div>
+            </>
+            )}
+            <button id='newGameButton' className='controlButton' onClick={displayStartNewGame}>New Game</button>
+            <button id='revealSquareButton' className='controlButton' onClick={enterRevealSquareMode}>Reveal Square</button>
+            
         </div>
-        </>
-        )}
-        </div>
+    </div>
     );
 }

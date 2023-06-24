@@ -2,19 +2,19 @@
     display: inline-block;
     color: rgb(196, 179, 3);
     outline-color: #c4b303;
+    cursor: default;
 }
 
 .nonInputClass {
-    background-color: #494949;
+    background-color: #4b4b4b;
 }
 
 .inputClass{
-    background-color: #694d4d;
+    background-color: #7a4646;
 }
 
 .squareClass:hover {
-    background-color: #864545;
-    cursor: default;
+    background-color: #8a3838;
 }
 
 .displayNumberClass {
