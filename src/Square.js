@@ -19,7 +19,7 @@ export default function Square({ displayNumber, trueNumber, identifier, selectSq
   if (weakHighlight === true) {
     filter = "brightness(140%)"
   }
-
+  
   if (!input) {
     return (
       <div className="squareClass nonInputClass" onClick={handleClickWithID} style={{ boxShadow: boxShadowStyle, filter: filter }}>
