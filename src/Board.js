@@ -480,11 +480,11 @@ export default function Board() {
                 </div>
             ) : (
             <>
-            <div className='line' id='lineOne'/>
-            <div className='line' id='lineTwo'/>
-            <div className='line' id='lineThree'/>
-            <div className='line' id='lineFour'/>
             <div className='boardClass'>
+                <div className='line' id='lineOne'/>
+                <div className='line' id='lineTwo'/>
+                <div className='line' id='lineThree'/>
+                <div className='line' id='lineFour'/>
                 {squaresSet}
             </div>
             </>
