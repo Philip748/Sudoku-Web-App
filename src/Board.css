@@ -168,7 +168,9 @@ input[type="range"]::-ms-fill-upper {
 
 #startGameButton{
     margin-top: 100px;
-    background-color: #9e4545;
+    background-color: #be666650;
+    color: #e84c4c;
+    border: solid #e84c4c 2px;
     width: 300px;
     height: 100px;
     font-size: 3ch;
@@ -177,12 +179,16 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #startGameButton:hover {
-    background-color: #be6666;
+    background-color: #fe7b7b50;
     cursor: pointer;
+    color: #f38d8d;
+    border: solid #f38d8d 2px;
 }
 
 .controlButton{
-    background-color: #be6666;
+    background-color: #be666650;
+    color: #e84c4c;
+    border: solid #e84c4c 2px;
     width: 150px;
     height: 40px;
     font-size: 2ch;
@@ -191,14 +197,16 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .controlButton:hover {
-    background-color: #f38d8d;
+    background-color: #fe7b7b50;
     cursor: pointer;
+    color: #f38d8d;
+    border: solid #f38d8d 2px;
 }
 
 #revealSquareButton{
     display: none;
     position: absolute;
-    left: calc(50% + 220px);
+    left: calc(50% + 200px);
     top: calc(50% - 300px);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -207,7 +215,16 @@ input[type="range"]::-ms-fill-upper {
 #newGameButton{
     display: none;
     position: absolute;
-    left: calc(50% - 220px);
+    left: calc(50% - 200px);
+    top: calc(50% - 300px);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#restartButton{
+    display: none;
+    position: absolute;
+    left: calc(50%);
     top: calc(50% - 300px);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);

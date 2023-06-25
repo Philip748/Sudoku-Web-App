@@ -8,6 +8,7 @@ var selectedSquareID = null
 var squares = []
 var revealing = false
 var difficulty = 0.5
+var squaresRevealed = 0
 
 export default function Board() {
     function generateSudokuBoard() {
@@ -185,9 +186,12 @@ export default function Board() {
             }
         }
         else{
-            tempBoard[identifier]["displayNum"] = tempBoard[identifier]["value"]
-            tempBoard[identifier]["input"] = false
-            checkCompletion();
+            if (tempBoard[identifier]["input"]){
+                tempBoard[identifier]["displayNum"] = tempBoard[identifier]["value"]
+                tempBoard[identifier]["input"] = false
+                squaresRevealed = squaresRevealed + 1
+                checkCompletion();
+            }
         }
         setSudokuBoard(tempBoard);
     };
@@ -386,11 +390,14 @@ export default function Board() {
         if (z) z.style.display = "block";
         var c = document.getElementById("revealSquareButton");
         if (c) c.style.display = "block";
+        var c = document.getElementById("restartButton");
+        if (c) c.style.display = "block";
         var y = document.getElementById("myRange");
         difficulty = 0.75 - y.value/100;
         if (revealing){
             enterRevealSquareMode();
         }
+        squaresRevealed = 0;
         setSeconds(0);
         setMinutes(0);
         setIsPuzzleFinished(false);
@@ -415,11 +422,11 @@ export default function Board() {
         }
         if (revealing){
             var x = document.getElementById("revealSquareButton");
-            x.style.backgroundColor = "#f38d8d";
+            x.style.backgroundColor = "#be6666";
         }
         else {
             var x = document.getElementById("revealSquareButton");
-            x.style.backgroundColor = "#be6666";
+            x.style.backgroundColor = "#be666650";
         }
       }
       
@@ -433,6 +440,21 @@ export default function Board() {
         if (z) z.style.display = "none";
         var c = document.getElementById("revealSquareButton");
         if (c) c.style.display = "none";
+        var c = document.getElementById("restartButton");
+        if (c) c.style.display = "none";
+    }
+
+    function restartBoard(board){
+        let updatedBoard = [...board];
+        for (let i=0; i<updatedBoard.length; i++){
+            if (updatedBoard[i]['input']){
+                updatedBoard[i]['displayNum'] = "‎"
+            }
+        }
+        if (selectedSquareID !== null){
+            selectSquareByID(selectedSquareID)
+        }
+        return updatedBoard;
     }
 
     return (
@@ -453,6 +475,7 @@ export default function Board() {
                 <div className='finishBox'>
                 Congratulations, you finished the puzzle!
                 <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
+                <h5>You used {squaresRevealed} reveals</h5>
                 <button id='playAnotherButton' onClick={displayStartNewGame}>Play Another</button>
                 </div>
             ) : (
@@ -468,8 +491,8 @@ export default function Board() {
             )}
             <button id='newGameButton' className='controlButton' onClick={displayStartNewGame}>New Game</button>
             <button id='revealSquareButton' className='controlButton' onClick={enterRevealSquareMode}>Reveal Square</button>
-            
-        </div>
+            <button id='restartButton' className='controlButton' onClick={() => setSudokuBoard(restartBoard(sudokuBoard))}>Restart</button>
+            </div>
     </div>
     );
 }
