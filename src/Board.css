@@ -230,7 +230,8 @@ input[type="range"]::-ms-fill-upper {
     background-color: #be666650;
     color: #e84c4c;
     border: solid #e84c4c 2px;
-    width: 150px;
+    max-width: 150px;
+    width: 25vw;
     height: 40px;
     font-size: 2ch;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -283,6 +284,12 @@ html, body {
     min-height: 640px;
     background-image: linear-gradient(rgb(247, 226, 111), rgb(235, 124, 124));
     z-index: -2;
+}
+
+@media (pointer:none), (pointer:coarse){
+    #pageDiv{
+        width: 100vw;
+    }
 }
 
 body { 
