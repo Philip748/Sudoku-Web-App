@@ -470,14 +470,22 @@ export default function Board() {
         return updatedBoard;
     }
 
-    
+    function setEasy(){
+        var x = document.getElementById("myRange");
+        if (x) x.value = "0";
+    }
+
+    function setHard(){
+        var x = document.getElementById("myRange");
+        if (x) x.value = "50";
+    }
 
     return (
         <div>
             <div id='pageDiv'>
                 <div id='newGameDiv'>
                     <p id='newGameHeading'>Select difficulty</p>
-                    <p id='easyText'>Easy</p> <p id='hardText'>Hard</p>
+                    <p id='easyText' onClick={setEasy}>Easy</p> <p id='hardText'onClick={setHard}>Hard</p>
                     <div className="slidecontainer">
                         <input type="range" min="0" max="50" defaultValue="25" className="slider" id="myRange"></input>
                     </div>
@@ -503,7 +511,6 @@ export default function Board() {
                     </div>
                 </div>
                 <div id='mobileKeypadDiv'>
-                        <div className='key' id='key0' onClick={() => setSudokuBoard(keypadPress('0', sudokuBoard))}>0</div>
                         <div className='key' id='key1' onClick={() => setSudokuBoard(keypadPress('1', sudokuBoard))}>1</div>
                         <div className='key' id='key2' onClick={() => setSudokuBoard(keypadPress('2', sudokuBoard))}>2</div>
                         <div className='key' id='key3' onClick={() => setSudokuBoard(keypadPress('3', sudokuBoard))}>3</div>

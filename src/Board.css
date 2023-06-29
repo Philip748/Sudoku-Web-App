@@ -186,6 +186,7 @@ input[type="range"]::-ms-fill-upper {
 #hardText{
     background-color: #42424280;
     padding: 5px;
+    cursor: pointer;
     padding-top: 2px;
     border-radius: 5px;
     position: absolute;
@@ -198,6 +199,7 @@ input[type="range"]::-ms-fill-upper {
 #easyText{
     background-color: #42424280;
     padding: 5px;
+    cursor: pointer;
     padding-top: 2px;
     border-radius: 5px;
     position: absolute;
@@ -205,6 +207,14 @@ input[type="range"]::-ms-fill-upper {
     top: calc(50% - 135px);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+#easyText:hover{
+    background-color: #7a7a7a80;
+}
+
+#hardText:hover{
+    background-color: #7a7a7a80;
 }
 
 #startGameButton{
@@ -296,7 +306,7 @@ body::-webkit-scrollbar{
 
 #mobileKeypadDiv{
     position: fixed;
-    bottom: 3vw;
+    bottom: 0;
     width: 100vw;
     height: fit-content;
     text-align: center;
@@ -306,14 +316,14 @@ body::-webkit-scrollbar{
 
 .key{
     color: rgb(196, 179, 3);
-    width: 9vw;
-    height: 7vw;
-    outline: solid #424242 1px;
+    width: 20vw;
+    height: 16vw;
+    outline: solid #d1a547 1px;
     background-color: rgba(57, 57, 57, 0.9);
     text-align: center;
     display: inline-block;
-    font-size: 4vw;
-    padding-top: 2vw;
+    font-size: 8vw;
+    padding-top: 4vw;
     font-family: "Lucida Handwriting";
 }
 
