@@ -24,6 +24,12 @@
     font-family: "Lucida Handwriting";
 }
 
+@media (pointer:none), (pointer:coarse){
+    .displayNumberClass{
+        font-size: 20px;
+    }
+}
+
 .backgroundSquare {
     margin: 2px;
     width: 176px;

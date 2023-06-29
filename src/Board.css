@@ -233,7 +233,7 @@ input[type="range"]::-ms-fill-upper {
     max-width: 150px;
     width: 25vw;
     height: 40px;
-    font-size: 2ch;
+    font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border-radius: 20px;
     transform: translateY(-50px);
@@ -288,7 +288,73 @@ html, body {
 
 @media (pointer:none), (pointer:coarse){
     #pageDiv{
-        width: 100vw;
+        width: 101vw;
+    }
+
+    #hardText{
+        background-color: #42424280;
+        padding: 5px;
+        padding-top: 2px;
+        border-radius: 5px;
+        position: absolute;
+        left: calc(50% + 200px);
+        top: calc(50% - 135px);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    
+    #easyText{
+        background-color: #42424280;
+        padding: 5px;
+        padding-top: 2px;
+        border-radius: 5px;
+        position: absolute;
+        left: calc(50% - 100px);
+        top: calc(50% - 80px);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    #myRange{
+        width: 2000px;
+        margin-top: 70px;
+    }
+
+    .controlButton{
+        background-color: #be666650;
+        color: #e84c4c;
+        border: solid #e84c4c 2px;
+        max-width: 150px;
+        width: 28vw;
+        height: 40px;
+        font-size: 12px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 20px;
+        transform: translateY(-50px);
+    }
+
+    #startGameButton{
+        margin-top: 80px;
+        background-color: #be666650;
+        color: #e84c4c;
+        border: solid #e84c4c 2px;
+        width: 200px;
+        height: 80px;
+        font-size: 2ch;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 20px;
+    }
+
+    #playAnotherButton{
+        background-color: #be666650;
+        color: #e84c4c;
+        border: solid #e84c4c 2px;
+        width: 200px;
+        height: 80px;
+        font-size: 2ch;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 20px;
+        margin-top: 50px;
     }
 }
 
