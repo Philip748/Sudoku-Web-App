@@ -301,7 +301,7 @@ body::-webkit-scrollbar{
     height: fit-content;
     text-align: center;
     display: none;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .key{
