@@ -320,6 +320,8 @@ export default function Board() {
             setIsPuzzleFinished(true);
             var c = document.getElementById("board");
             if (c) c.style.display = "none";
+            var k = document.getElementById("mobileKeypadDiv");
+            if (k) k.style.display = "none";
             var c = document.getElementById("finishBoxId");
             if (c) c.style.display = "block";
         };
@@ -383,7 +385,9 @@ export default function Board() {
         var x = document.getElementById("newGameDiv");
         if (x) x.style.display = "none";
         var c = document.getElementById("board");
-        c.style.display = "grid";
+        if (c) c.style.display = "grid";
+        var k = document.getElementById("mobileKeypadDiv");
+        if (k) k.style.display = "block";
         var y = document.getElementById("myRange");
         difficulty = 0.75 - y.value/100;
         squaresRevealed = 0;
@@ -430,6 +434,8 @@ export default function Board() {
         if (x) x.style.display = "none";
         var x = document.getElementById("board");
         if (x) x.style.display = "none";
+        var k = document.getElementById("mobileKeypadDiv");
+        if (k) k.style.display = "none";
     }
 
     function restartBoard(board){
@@ -444,6 +450,26 @@ export default function Board() {
         }
         return updatedBoard;
     }
+
+    function keypadPress(key, board){
+        let updatedBoard = [...board];
+        if (selectedSquareID !== null) {
+            if (updatedBoard[selectedSquareID]["input"] === true) {
+                if (key >= '1' && key <= '9') {
+                    // Handle the key press for numbers 1 to 9
+                    updatedBoard[selectedSquareID]["displayNum"] = parseInt(key)
+                    checkCompletion();
+                }
+                else{
+                    // Handle the Backspace key press
+                    updatedBoard[selectedSquareID]["displayNum"] = "‎"
+                }
+            }
+        }
+        return updatedBoard;
+    }
+
+    
 
     return (
         <div>
@@ -474,6 +500,19 @@ export default function Board() {
                     <div id='timerDiv'>
                         <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
                     </div>
+                </div>
+                <div id='mobileKeypadDiv'>
+                        <div className='key' id='key0' onClick={() => setSudokuBoard(keypadPress('0', sudokuBoard))}>0</div>
+                        <div className='key' id='key1' onClick={() => setSudokuBoard(keypadPress('1', sudokuBoard))}>1</div>
+                        <div className='key' id='key2' onClick={() => setSudokuBoard(keypadPress('2', sudokuBoard))}>2</div>
+                        <div className='key' id='key3' onClick={() => setSudokuBoard(keypadPress('3', sudokuBoard))}>3</div>
+                        <div className='key' id='key4' onClick={() => setSudokuBoard(keypadPress('4', sudokuBoard))}>4</div>
+                        <div className='key' id='key5' onClick={() => setSudokuBoard(keypadPress('5', sudokuBoard))}>5</div>
+                        <div className='key' id='key6' onClick={() => setSudokuBoard(keypadPress('6', sudokuBoard))}>6</div>
+                        <div className='key' id='key7' onClick={() => setSudokuBoard(keypadPress('7', sudokuBoard))}>7</div>
+                        <div className='key' id='key8' onClick={() => setSudokuBoard(keypadPress('8', sudokuBoard))}>8</div>
+                        <div className='key' id='key9' onClick={() => setSudokuBoard(keypadPress('9', sudokuBoard))}>9</div>
+                        <div className='key' id='key<' onClick={() => setSudokuBoard(keypadPress('<', sudokuBoard))}>del</div>
                 </div>
             </div>
         </div>

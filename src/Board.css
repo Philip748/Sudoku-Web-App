@@ -286,7 +286,42 @@ html, body {
     z-index: -2;
 }
 
+body { 
+    overflow-x:hidden;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+#mobileKeypadDiv{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: fit-content;
+    text-align: center;
+    display: none;
+    visibility: hidden;
+}
+
+.key{
+    color: rgb(196, 179, 3);
+    width: 9vw;
+    height: 7vw;
+    outline: solid #424242 1px;
+    background-color: rgba(57, 57, 57, 0.9);
+    text-align: center;
+    display: inline-block;
+    font-size: 4vw;
+    padding-top: 2vw;
+    font-family: "Lucida Handwriting";
+}
+
 @media (pointer:none), (pointer:coarse){
+    #mobileKeypadDiv{
+        visibility: visible;
+    }
+
     #pageDiv{
         width: 101vw;
     }
@@ -297,8 +332,8 @@ html, body {
         padding-top: 2px;
         border-radius: 5px;
         position: absolute;
-        left: calc(50% + 200px);
-        top: calc(50% - 135px);
+        left: calc(50% + 1500px);
+        top: calc(50%);
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
@@ -309,14 +344,14 @@ html, body {
         padding-top: 2px;
         border-radius: 5px;
         position: absolute;
-        left: calc(50% - 100px);
-        top: calc(50% - 80px);
+        left: calc(50% - 150px);
+        top: calc(50%);
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
 
     #myRange{
-        width: 2000px;
+        width: 200px;
         margin-top: 70px;
     }
 
@@ -357,11 +392,3 @@ html, body {
         margin-top: 50px;
     }
 }
-
-body { 
-    overflow-x:hidden;
-}
-
-body::-webkit-scrollbar{
-    display: none;
-  }
