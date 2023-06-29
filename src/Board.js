@@ -318,12 +318,10 @@ export default function Board() {
     function checkCompletion(){
         if (checkIfCompleted(sudokuBoard)){
             setIsPuzzleFinished(true);
-            var y = document.getElementById("timerDiv");
-            if (y) y.style.display = "none";
-            var z = document.getElementById("newGameButton");
-            if (z) z.style.display = "none";
-            var c = document.getElementById("revealSquareButton");
+            var c = document.getElementById("board");
             if (c) c.style.display = "none";
+            var c = document.getElementById("finishBoxId");
+            if (c) c.style.display = "block";
         };
     }
 
@@ -380,24 +378,18 @@ export default function Board() {
         }
         return updatedBoard;
     }
-    
+
     function playAnother() {
         var x = document.getElementById("newGameDiv");
         if (x) x.style.display = "none";
-        var y = document.getElementById("timerDiv");
-        if (y) y.style.display = "block";
-        var z = document.getElementById("newGameButton");
-        if (z) z.style.display = "block";
-        var c = document.getElementById("revealSquareButton");
-        if (c) c.style.display = "block";
-        var c = document.getElementById("restartButton");
-        if (c) c.style.display = "block";
+        var c = document.getElementById("board");
+        c.style.display = "grid";
         var y = document.getElementById("myRange");
         difficulty = 0.75 - y.value/100;
-        if (revealing){
-            enterRevealSquareMode();
-        }
         squaresRevealed = 0;
+        if (revealing){
+            toggleRevealSquareMode();
+        }
         setSeconds(0);
         setMinutes(0);
         setIsPuzzleFinished(false);
@@ -407,7 +399,7 @@ export default function Board() {
         setSudokuBoard(temp);
     }
 
-    function enterRevealSquareMode() {
+    function toggleRevealSquareMode() {
         if (selectedSquareID !== null) {
           selectSquareByID(selectedSquareID);
         }
@@ -420,13 +412,13 @@ export default function Board() {
             squares[i].style.cursor = "default";
           }
         }
-        if (revealing){
-            var x = document.getElementById("revealSquareButton");
+        var x = document.getElementById("revealSquareButton");
+        if (x) {
+          if (revealing) {
             x.style.backgroundColor = "#be6666";
-        }
-        else {
-            var x = document.getElementById("revealSquareButton");
+          } else {
             x.style.backgroundColor = "#be666650";
+          }
         }
       }
       
@@ -434,14 +426,10 @@ export default function Board() {
       function displayStartNewGame(){
         var x = document.getElementById("newGameDiv");
         if (x) x.style.display = "block";
-        var y = document.getElementById("timerDiv");
-        if (y) y.style.display = "none";
-        var z = document.getElementById("newGameButton");
-        if (z) z.style.display = "none";
-        var c = document.getElementById("revealSquareButton");
-        if (c) c.style.display = "none";
-        var c = document.getElementById("restartButton");
-        if (c) c.style.display = "none";
+        var x = document.getElementById("finishBoxId");
+        if (x) x.style.display = "none";
+        var x = document.getElementById("board");
+        if (x) x.style.display = "none";
     }
 
     function restartBoard(board){
@@ -459,40 +447,35 @@ export default function Board() {
 
     return (
         <div>
-        <div id='pageDiv'>
-            <div id='timerDiv'>
-                <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
-            </div>
-            <div id='newGameDiv'>
-                <p id='newGameHeading'>Select your desired difficulty</p>
-                <p id='easyText'>Easy</p> <p id='hardText'>Hard</p>
-                <div className="slidecontainer">
-                    <input type="range" min="0" max="50" defaultValue="25" className="slider" id="myRange"></input>
+            <div id='pageDiv'>
+                <div id='newGameDiv'>
+                    <p id='newGameHeading'>Select difficulty</p>
+                    <p id='easyText'>Easy</p> <p id='hardText'>Hard</p>
+                    <div className="slidecontainer">
+                        <input type="range" min="0" max="50" defaultValue="25" className="slider" id="myRange"></input>
+                    </div>
+                    <button id='startGameButton' onClick={playAnother}>Start Game</button>
                 </div>
-                <button id='startGameButton' onClick={playAnother}>Start Game</button>
-            </div>
-            {isPuzzleFinished ? (
-                <div className='finishBox'>
-                Congratulations, you finished the puzzle!
-                <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
-                <h5>You used {squaresRevealed} reveals</h5>
-                <button id='playAnotherButton' onClick={displayStartNewGame}>Play Another</button>
+                <div className='finishBox' id='finishBoxId'>
+                    <p id="congratulationText">Congratulations, you finished the puzzle!</p>
+                    <h5>Your time taken was: {minutes} minutes and {seconds} seconds</h5>
+                    <h5>You used {squaresRevealed} reveals</h5>
+                    <button id='playAnotherButton' onClick={displayStartNewGame}>Play Another</button>
                 </div>
-            ) : (
-            <>
-            <div className='boardClass'>
-                <div className='line' id='lineOne'/>
-                <div className='line' id='lineTwo'/>
-                <div className='line' id='lineThree'/>
-                <div className='line' id='lineFour'/>
-                {squaresSet}
+                <div className='boardClass' id='board'>
+                    <div className='line' id='lineOne'/>
+                    <div className='line' id='lineTwo'/>
+                    <div className='line' id='lineThree'/>
+                    <div className='line' id='lineFour'/>
+                    {squaresSet}
+                    <button id='newGameButton' className='controlButton' onClick={displayStartNewGame}>New Game</button>
+                    <button id='revealSquareButton' className='controlButton' onClick={toggleRevealSquareMode}>Reveal Square</button>
+                    <button id='restartButton' className='controlButton' onClick={() => setSudokuBoard(restartBoard(sudokuBoard))}>Restart</button>
+                    <div id='timerDiv'>
+                        <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
+                    </div>
+                </div>
             </div>
-            </>
-            )}
-            <button id='newGameButton' className='controlButton' onClick={displayStartNewGame}>New Game</button>
-            <button id='revealSquareButton' className='controlButton' onClick={enterRevealSquareMode}>Reveal Square</button>
-            <button id='restartButton' className='controlButton' onClick={() => setSudokuBoard(restartBoard(sudokuBoard))}>Restart</button>
-            </div>
-    </div>
+        </div>
     );
 }

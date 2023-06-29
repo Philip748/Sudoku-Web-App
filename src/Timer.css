@@ -5,7 +5,4 @@
     text-align: center;
     border: 4px solid black;
     font-size: x-large;
-    position: absolute;
-    margin-left: calc(10vw - 4px);
-    margin-top: calc(10vh + 540px);
 }
