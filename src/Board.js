@@ -464,6 +464,7 @@ export default function Board() {
                     // Handle the Backspace key press
                     updatedBoard[selectedSquareID]["displayNum"] = "‎"
                 }
+                selectSquareByIDWithoutChecking(selectedSquareID);
             }
         }
         return updatedBoard;
