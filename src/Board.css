@@ -339,6 +339,10 @@ body::-webkit-scrollbar{
         visibility: visible;
     }
 
+    #congratulationText{
+        margin-top: 30px;
+    }
+
     #pageDiv{
         width: 100vw;
     }
