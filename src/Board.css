@@ -316,14 +316,16 @@ body::-webkit-scrollbar{
 
 .key{
     color: rgb(196, 179, 3);
+    max-width: 55px;
     width: 20vw;
+    max-height: 44px;
     height: 16vw;
     outline: solid #d1a547 1px;
     background-color: rgba(57, 57, 57, 0.9);
     text-align: center;
     display: inline-block;
-    font-size: 8vw;
-    padding-top: 4vw;
+    font-size: 25px;
+    padding-top: 11px;
     font-family: "Lucida Handwriting";
 }
 
