@@ -364,7 +364,7 @@ body::-webkit-scrollbar{
 
     #myRange{
         width: 200px;
-        top: calc(50% - 30px);
+        top: calc(50% + 15px);
     }
 
     .controlButton{
