@@ -336,6 +336,7 @@ body::-webkit-scrollbar{
 
     #pageDiv{
         width: 101vw;
+        position: fixed;
     }
 
     #hardText{
