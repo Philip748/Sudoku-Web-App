@@ -335,7 +335,7 @@ body::-webkit-scrollbar{
     }
 
     #pageDiv{
-        width: 110vw;
+        width: 100vw;
     }
 
     #hardText{
@@ -364,7 +364,7 @@ body::-webkit-scrollbar{
 
     #myRange{
         width: 200px;
-        margin-top: 70px;
+        top: calc(50% - 30px);
     }
 
     .controlButton{
@@ -381,7 +381,7 @@ body::-webkit-scrollbar{
     }
 
     #startGameButton{
-        margin-top: 80px;
+        bottom: 0;
         background-color: #be666650;
         color: #e84c4c;
         border: solid #e84c4c 2px;
