@@ -84,6 +84,7 @@
 }
 
 #playAnotherButton{
+    position: absolute;
     background-color: #be666650;
     color: #e84c4c;
     border: solid #e84c4c 2px;
@@ -92,7 +93,8 @@
     font-size: 3ch;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border-radius: 20px;
-    margin-top: 80px;
+    bottom: 10%;
+    left: calc(50% - 150px);
 }
 
 #playAnotherButton:hover {
@@ -134,11 +136,12 @@
 
 #myRange{
     width: 400px;
-    margin-top: 70px;
 }
 
 .slidecontainer {
     width: 100%;
+    top: calc(50% + 15px);
+    position: absolute;
 }
   
 /*Chrome*/
@@ -191,7 +194,7 @@ input[type="range"]::-ms-fill-upper {
     border-radius: 5px;
     position: absolute;
     left: calc(50% + 200px);
-    top: calc(50% - 135px);
+    top: calc(50% - 20px);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -204,7 +207,7 @@ input[type="range"]::-ms-fill-upper {
     border-radius: 5px;
     position: absolute;
     left: calc(50% - 200px);
-    top: calc(50% - 135px);
+    top: calc(50% - 20px);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
@@ -218,7 +221,9 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #startGameButton{
-    margin-top: 100px;
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 150px);
     background-color: #be666650;
     color: #e84c4c;
     border: solid #e84c4c 2px;
@@ -381,7 +386,8 @@ body::-webkit-scrollbar{
     }
 
     #startGameButton{
-        bottom: 0;
+        left: calc(50% - 100px);
+        bottom: 10%;
         background-color: #be666650;
         color: #e84c4c;
         border: solid #e84c4c 2px;
@@ -401,6 +407,7 @@ body::-webkit-scrollbar{
         font-size: 2ch;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         border-radius: 20px;
-        margin-top: 50px;
+        bottom: 10%;
+        left: calc(50% - 100px);
     }
 }
