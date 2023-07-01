@@ -247,11 +247,11 @@ input[type="range"]::-ms-fill-upper {
     border: solid #e84c4c 2px;
     max-width: 150px;
     width: 25vw;
-    height: 40px;
-    font-size: 20px;
+    height: 7vh;
+    font-size: 18px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border-radius: 20px;
-    transform: translateY(-50px);
+    transform: translateY(-9vh);
 }
 
 .controlButton:hover {

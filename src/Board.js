@@ -504,7 +504,7 @@ export default function Board() {
                     <div className='line' id='lineFour'/>
                     {squaresSet}
                     <button id='newGameButton' className='controlButton' onClick={displayStartNewGame}>New Game</button>
-                    <button id='revealSquareButton' className='controlButton' onClick={toggleRevealSquareMode}>Reveal Square</button>
+                    <button id='revealSquareButton' className='controlButton' onClick={toggleRevealSquareMode}>Reveal</button>
                     <button id='restartButton' className='controlButton' onClick={() => setSudokuBoard(restartBoard(sudokuBoard))}>Restart</button>
                     <div id='timerDiv'>
                         <Timer seconds={seconds} setSeconds={setSeconds} minutes={minutes} setMinutes={setMinutes} isPuzzleFinished={isPuzzleFinished}/>
