@@ -1,20 +1,11 @@
 .squareClass {
     display: inline-block;
-    color: rgb(196, 179, 3);
-    outline-color: #c4b303;
+    outline-color: #006fff;
     cursor: default;
 }
 
-.nonInputClass {
-    background-color: #4b4b4b;
-}
-
-.inputClass{
-    background-color: #7a4646;
-}
-
 .squareClass:hover {
-    background-color: #8a3838;
+    background-color: #56a2c3;
 }
 
 .displayNumberClass {

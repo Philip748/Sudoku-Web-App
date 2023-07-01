@@ -1,5 +1,5 @@
 .boardClass {
-    background-color: #424242;
+    background-color: #424242a4;
     left:0;
     right:0;
     max-width: 540px;
@@ -61,9 +61,9 @@
 }
 
 .finishBox {
-    background-color: rgba(92, 92, 92, 0.5);
-    color: rgb(196, 179, 3);
-    outline: solid black 4px;
+    background-color: rgba(255, 255, 255, 0.63);
+    color: #3b3b3b;
+    outline: solid #3b3b3b 5px;
     left:0;
     right:0;
     max-width: 540px;
@@ -85,9 +85,9 @@
 
 #playAnotherButton{
     position: absolute;
-    background-color: #be666650;
-    color: #e84c4c;
-    border: solid #e84c4c 2px;
+    color: #3b3b3b;
+    border: solid #3b3b3b 3px;
+    background-color: #94fffd80;
     width: 300px;
     height: 100px;
     font-size: 3ch;
@@ -97,16 +97,15 @@
     left: calc(50% - 150px);
 }
 
-#playAnotherButton:hover {
-    background-color: #fe7b7b50;
+#playAnotherButton:hover{
+    border-color: #00bfff;
     cursor: pointer;
-    color: #f38d8d;
-    border: solid #f38d8d 2px;
 }
 
 #newGameDiv{
-    background-color: rgba(92, 92, 92, 0.5);
-    color: rgb(196, 179, 3);
+    background-color: rgba(255, 255, 255, 0.63);
+    color: #3b3b3b;
+    font-family: Arial, Helvetica, sans-serif;
     left:0;
     right:0;
     max-width: 540px;
@@ -118,11 +117,11 @@
     margin-top: 10vh;
     z-index: 3;
     text-align: center;
-    outline: 5px solid black;
+    outline: 5px solid rgb(99, 99, 99);
 }
 
 #newGameHeading{
-    background-color: #42424280;
+    background-color: #82828200;
     padding: 5px;
     padding-top: 2px;
     border-radius: 10px;
@@ -131,7 +130,6 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 3ch;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 #myRange{
@@ -151,14 +149,15 @@
       width: 400px;
       -webkit-appearance: none;
       background-color: #9a905d00;
-      outline: solid #9b5d5d 2px;
+      outline: solid #3b3b3b 2px;
+      border-radius: 10px;
     }
     
     input[type='range']::-webkit-slider-runnable-track {
       height: 10px;
       -webkit-appearance: none;
-      color: #9e4545;
       margin-top: -1px;
+      border-radius: 10px;
     }
     
     input[type='range']::-webkit-slider-thumb {
@@ -166,8 +165,9 @@
       -webkit-appearance: none;
       height: 10px;
       cursor: ew-resize;
-      background: #9e4545;
-      box-shadow: -400px 0 0 400px #9b5d5d;
+      background: rgb(0, 191, 255);
+      box-shadow: -400px 0 0 400px rgba(0, 221, 255, 0.409);
+      border-radius: 10px;
     }
 
 }
@@ -187,7 +187,8 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #hardText{
-    background-color: #42424280;
+    background-color: #94fffd80;
+    outline: solid #3b3b3b 2px;
     padding: 5px;
     cursor: pointer;
     padding-top: 2px;
@@ -200,7 +201,8 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #easyText{
-    background-color: #42424280;
+    background-color: #94fffd80;
+    outline: solid #3b3b3b 2px;
     padding: 5px;
     cursor: pointer;
     padding-top: 2px;
@@ -213,20 +215,20 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #easyText:hover{
-    background-color: #7a7a7a80;
+    outline-color: #00bfff;
 }
 
 #hardText:hover{
-    background-color: #7a7a7a80;
+    outline-color: #00bfff;
 }
 
 #startGameButton{
     position: absolute;
     bottom: 10%;
     left: calc(50% - 150px);
-    background-color: #be666650;
-    color: #e84c4c;
-    border: solid #e84c4c 2px;
+    color: #3b3b3b;
+    border: solid #3b3b3b 3px;
+    background-color: #94fffd80;
     width: 300px;
     height: 100px;
     font-size: 3ch;
@@ -235,16 +237,14 @@ input[type="range"]::-ms-fill-upper {
 }
 
 #startGameButton:hover {
-    background-color: #fe7b7b50;
+    border-color: #00bfff;
     cursor: pointer;
-    color: #f38d8d;
-    border: solid #f38d8d 2px;
 }
 
 .controlButton{
-    background-color: #be666650;
-    color: #e84c4c;
-    border: solid #e84c4c 2px;
+    color: #3b3b3b ;
+    background-color: #94fffd80;
+    border: solid #3b3b3b 2px;
     max-width: 150px;
     width: 25vw;
     height: 7vh;
@@ -255,10 +255,8 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .controlButton:hover {
-    background-color: #fe7b7b50;
+    border-color: #00bfff;
     cursor: pointer;
-    color: #f38d8d;
-    border: solid #f38d8d 2px;
     top: 0%;
 }
 
@@ -297,7 +295,7 @@ html, body {
     width: 10000px;
     height: 100vh;
     min-height: 640px;
-    background-image: linear-gradient(rgb(247, 226, 111), rgb(235, 124, 124));
+    background-image: linear-gradient(rgb(255, 255, 255), rgb(190, 255, 255));
     z-index: -2;
 }
 
@@ -320,13 +318,13 @@ body::-webkit-scrollbar{
 }
 
 .key{
-    color: rgb(196, 179, 3);
+    color: #3b3b3b;
     max-width: 55px;
     width: 20vw;
     max-height: 44px;
     height: 16vw;
-    outline: solid #d1a547 1px;
-    background-color: rgba(57, 57, 57, 0.9);
+    outline: solid #3b3b3b 1px;
+    background-color: #01ddff75;
     text-align: center;
     display: inline-block;
     font-size: 25px;
@@ -348,7 +346,6 @@ body::-webkit-scrollbar{
     }
 
     #hardText{
-        background-color: #42424280;
         padding: 5px;
         padding-top: 2px;
         border-radius: 5px;
@@ -360,7 +357,6 @@ body::-webkit-scrollbar{
     }
     
     #easyText{
-        background-color: #42424280;
         padding: 5px;
         padding-top: 2px;
         border-radius: 5px;
@@ -377,9 +373,6 @@ body::-webkit-scrollbar{
     }
 
     .controlButton{
-        background-color: #be666650;
-        color: #e84c4c;
-        border: solid #e84c4c 2px;
         max-width: 150px;
         width: 28vw;
         height: 40px;
@@ -392,9 +385,6 @@ body::-webkit-scrollbar{
     #startGameButton{
         left: calc(50% - 100px);
         bottom: 10%;
-        background-color: #be666650;
-        color: #e84c4c;
-        border: solid #e84c4c 2px;
         width: 200px;
         height: 80px;
         font-size: 2ch;
@@ -403,9 +393,6 @@ body::-webkit-scrollbar{
     }
 
     #playAnotherButton{
-        background-color: #be666650;
-        color: #e84c4c;
-        border: solid #e84c4c 2px;
         width: 200px;
         height: 80px;
         font-size: 2ch;

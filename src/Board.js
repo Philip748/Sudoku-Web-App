@@ -419,9 +419,9 @@ export default function Board() {
         var x = document.getElementById("revealSquareButton");
         if (x) {
           if (revealing) {
-            x.style.backgroundColor = "#be6666";
+            x.style.backgroundColor = "#94fffd";
           } else {
-            x.style.backgroundColor = "#be666650";
+            x.style.backgroundColor = "#94fffd80";
           }
         }
       }
